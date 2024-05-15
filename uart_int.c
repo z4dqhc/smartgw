@@ -89,7 +89,7 @@ int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop)
 	newtio.c_cc[VMIN] = 0;
 
 	//清空与终端文件域相关的IO队列
-	tcflush(fd,TCIFLUSH);
+	tcflush(fd,TCIFLUSH);//子进程保留了父进程的缓存可能会重复打印
 
 	if((tcsetattr(fd,TCSANOW,&newtio))!=0)
 	{
