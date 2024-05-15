@@ -87,13 +87,16 @@ int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop)
 	newtio.c_cflag |=  CSTOPB;
 	newtio.c_cc[VTIME]  = 0;
 	newtio.c_cc[VMIN] = 0;
+
+	//清空输入输出终端文件域相关的队列
 	tcflush(fd,TCIFLUSH);
+
 	if((tcsetattr(fd,TCSANOW,&newtio))!=0)
 	{
 		perror("com set error");
 		return -1;
 	}
-//	printf("set done!\n\r");
+	//printf("set done!\n\r");
 	return 0;
 }
 
